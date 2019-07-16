@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+echo 'Config for aliyun oss'
+/usr/bin/ossutil config -e ${ALIYUN_ENDPOINT} -i ${ALIYUN_ACCESS_KEY_ID} -k ${ALIYUN_SECRET_ACCESS_KEY}
+
+echo 'Upload file to oss'
+/usr/bin/ossutil cp ${PLUGIN_SOURCE} ${ALIYUN_BUCKET}/${PLUGIN_TARGET} ${PLUGIN_RECURSIVE} -f
+
+echo 'Set ACL for file'
+/usr/bin/ossutil set-acl ${ALIYUN_BUCKET}/${PLUGIN_TARGET} ${PLUGIN_ACCESS} ${PLUGIN_RECURSIVE} -f
